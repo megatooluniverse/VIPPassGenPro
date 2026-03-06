@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="title" content="VIP Pass Generator Pro - Create Custom Event Badges Instantly">
+    <meta name="description" content="Free Online VIP Pass Mockup Generator. Create stylish mock passes, event badges, and ID cards for pranks, events, and design practice in 10 seconds. No signup!">
+    <meta name="keywords" content="VIP Pass, ID Card Generator, Mockup Tool, Fake Badge Maker, Event Badge Creator, Free Design Tool, Online Pass Maker">
+    <meta name="author" content="VIP Pass Pro">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="VIP Pass Generator Pro - Create Custom Badges">
+    <meta property="og:description" content="Generate cool VIP passes for fun instantly. Fully customizable, no signup required. Make your own event badge now!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1540317580384-e5d43867caa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎟️</text></svg>">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <title>VIP Pass Generator Pro | Custom Event Badges</title>
+
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --accent: #d4af37;
+            --bg: #f4f7f6;
+            --text: #2b2b2b;
+            --card-width: 360px;
+            --card-height: 570px;
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        * { box-sizing: border-box; font-family: var(--font-main); }
+        
+        body { 
+            margin: 0; padding: 0; background: var(--bg); 
+            display: flex; flex-direction: column; align-items: center; 
+            min-height: 100vh; color: var(--text);
+        }
+
+        /* HEADER */
+        header { 
+            text-align: center; padding: 25px 20px; width: 100%; background: #ffffff; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-bottom: 4px solid var(--accent);
+        }
+        .logo-area { font-size: 2.5rem; margin-bottom: 5px; animation: bounce 2s infinite; display: inline-block; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        h1 { margin: 0; font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; }
+        .subtitle { font-size: 1rem; color: #666; margin-top: 5px; font-weight: 300; }
+        
+        .warning-box {
+            background: #fff8e1; color: #f57f17; border: 1px solid #ffe082;
+            padding: 8px 18px; border-radius: 50px; display: inline-block;
+            margin-top: 15px; font-size: 0.85rem; font-weight: 600;
+        }
+
+        /* MAIN LAYOUT */
+        .container {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 50px;
+            width: 100%; max-width: 1200px; padding: 40px 20px; flex: 1;
+        }
+
+        /* CONTROLS AREA */
+        .controls {
+            flex: 1; min-width: 320px; max-width: 450px;
+            background: #ffffff; padding: 35px; border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: fit-content; border: 1px solid #eee;
+        }
+        .controls h3 { margin-top: 0; font-size: 1.3rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 25px; color: var(--primary); }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; color: #444; }
+        input[type="text"] {
+            width: 100%; padding: 14px 15px; border: 1.5px solid #e0e0e0; border-radius: 8px;
+            font-size: 1rem; transition: all 0.3s; background: #fafafa;
+        }
+        input[type="text"]:focus { border-color: var(--accent); outline: none; background: #fff; box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); }
+        
+        input[type="file"] {
+            width: 100%; padding: 10px; border: 1.5px dashed #ccc; border-radius: 8px;
+            background: #fafafa; cursor: pointer;
+        }
+
+        .color-opts { display: flex; gap: 15px; margin-top: 8px; }
+        .color-btn {
+            width: 42px; height: 42px; border-radius: 50%; border: 3px solid #fff; cursor: pointer;
+            transition: all 0.2s; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .color-btn:hover { transform: translateY(-3px); }
+        .color-btn.active { transform: scale(1.15); box-shadow: 0 0 0 3px var(--primary); }
+        
+        .bg-gold { background: linear-gradient(135deg, #FFD700, #FDB931); }
+        .bg-black { background: linear-gradient(135deg, #2b2b2b, #000000); }
+        .bg-blue { background: linear-gradient(135deg, #0061ff, #0037a3); }
+        .bg-purple { background: linear-gradient(135deg, #b027a4, #53118f); }
+
+        .btn-group { display: flex; flex-direction: column; gap: 15px; margin-top: 35px; }
+        button {
+            padding: 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
+            font-size: 1.05rem; transition: all 0.3s; font-family: var(--font-main);
+        }
+        .btn-clear { background: #f0f0f0; color: #555; }
+        .btn-clear:hover { background: #e4e4e4; }
+        .btn-download { 
+            background: linear-gradient(135deg, #28a745, #208737); color: #fff; 
+            box-shadow: 0 8px 15px rgba(40,167,69,0.3); text-transform: uppercase; letter-spacing: 1px; 
+        }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 12px 20px rgba(40,167,69,0.4); }
+
+        /* PREVIEW AREA */
+        .preview-area {
+            flex: 1; min-width: 320px; display: flex; justify-content: center; align-items: flex-start;
+        }
+        
+        #preview-card {
+            width: var(--card-width); height: var(--card-height);
+            background: #fff; border-radius: 24px;
+            position: relative; overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; padding: 30px 20px;
+            border: 10px solid; 
+            transition: all 0.4s ease;
+        }
+
+        .vip-header {
+            font-size: 2.8rem; font-weight: 900; letter-spacing: 4px; margin-top: 10px;
+            text-transform: uppercase; border-bottom: 4px solid; padding-bottom: 10px;
+            width: 90%; line-height: 1;
+        }
+
+        .event-name { font-size: 1.15rem; font-weight: 700; margin-top: 15px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px;}
+
+        /* UPDATED PHOTO FRAME CSS FOR BUG-FREE IMAGES */
+        .photo-frame {
+            width: 170px; height: 170px; border-radius: 50%;
+            background-color: #f0f0f0; margin: 30px 0; 
+            border: 6px solid rgba(255,255,255,0.9);
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15); position: relative;
+            z-index: 2;
+            
+            /* Magic lines for perfect image preview */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .photo-placeholder { color: #999; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-align: center; }
+
+        .person-name { font-size: 1.8rem; font-weight: 800; margin: 0; line-height: 1.1; word-break: break-word; width: 100%; text-transform: uppercase; }
+        .person-role { font-size: 1.1rem; text-transform: uppercase; margin-top: 8px; letter-spacing: 2px; font-weight: 600; opacity: 0.9; color: #ff3b30; }
+
+        .pass-date { 
+            margin-top: auto; font-size: 1.2rem; font-weight: 800; margin-bottom: 35px; 
+            border: 2px solid; padding: 6px 20px; border-radius: 30px; letter-spacing: 1px;
+        }
+
+        .watermark {
+            position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+            font-size: 0.65rem; color: #000; opacity: 0.25; font-weight: 800;
+            white-space: nowrap; pointer-events: none; z-index: 10; letter-spacing: 2px;
+        }
+
+        /* CARD THEMES */
+        .theme-gold { border-color: #d4af37; color: #1a1a2e; }
+        .theme-gold .vip-header { color: #d4af37; border-color: #d4af37; }
+        .theme-gold .pass-date { border-color: #d4af37; color: #d4af37; background: rgba(212, 175, 55, 0.1); }
+
+        .theme-black { background: #1a1a2e; border-color: #0f0f1a; color: #ffffff; }
+        .theme-black .vip-header { color: #ffffff; border-color: #ffffff; }
+        .theme-black .photo-frame { border-color: #333; background-color: #222; }
+        .theme-black .watermark { color: #ffffff; opacity: 0.15; }
+        .theme-black .pass-date { border-color: #ffffff; color: #ffffff; background: rgba(255,255,255,0.1); }
+        .theme-black .person-role { color: #d4af37; }
+
+        .theme-blue { border-color: #0056b3; color: #002a5c; }
+        .theme-blue .vip-header { color: #0056b3; border-color: #0056b3; }
+        .theme-blue .pass-date { border-color: #0056b3; color: #0056b3; background: rgba(0, 86, 179, 0.1); }
+
+        .theme-purple { border-color: #673ab7; color: #311b92; }
+        .theme-purple .vip-header { color: #673ab7; border-color: #673ab7; }
+        .theme-purple .pass-date { border-color: #673ab7; color: #673ab7; background: rgba(103, 58, 183, 0.1); }
+
+        /* DOWNLOAD MODAL */
+        .entry-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;
+            backdrop-filter: blur(8px); padding: 20px;
+        }
+        .entry-content {
+            background: #fff; padding: 40px; border-radius: 16px; width: 100%; max-width: 550px;
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .entry-content h2 { color: #d32f2f; margin-top: 0; font-weight: 800; font-size: 1.8rem; }
+        .entry-content p { color: #555; font-size: 1rem; }
+        .legal-text {
+            font-size: 0.9rem; color: #444; text-align: left; height: 180px; overflow-y: auto;
+            border: 1px solid #e0e0e0; padding: 15px; margin: 20px 0; background: #fafafa; border-radius: 8px;
+            line-height: 1.6;
+        }
+        .checkbox-container {
+            display: flex; align-items: center; justify-content: center; gap: 12px; margin: 25px 0;
+            font-size: 1rem; font-weight: 600; cursor: pointer;
+        }
+        .checkbox-container input { width: 22px; height: 22px; cursor: pointer; accent-color: #28a745; }
+        .btn-enter { 
+            width: 100%; background: #1a1a2e; color: #fff; font-size: 1.15rem; padding: 16px; 
+            border-radius: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-enter:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .close-modal {
+            position: absolute; right: 20px; top: 20px; font-size: 1.5rem; color: #999; 
+            cursor: pointer; font-weight: bold; background: none; border: none; padding: 0;
+        }
+        .close-modal:hover { color: #333; }
+
+        /* FOOTER */
+        footer { 
+            padding: 30px 20px; width: 100%; background: #ffffff; margin-top: auto; 
+            border-top: 1px solid #eee; display: flex; flex-direction: column; align-items: center;
+        }
+        .footer-links { margin-bottom: 15px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .footer-links a { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-text { font-size: 0.85rem; color: #777; text-align: center; max-width: 600px; line-height: 1.5; }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px; gap: 30px; }
+            .controls { padding: 25px 20px; }
+            #preview-card { transform: scale(0.9); transform-origin: top center; margin-bottom: -50px; }
+            header h1 { font-size: 1.5rem; }
+            .entry-content { padding: 30px 20px; }
+        }
+        @media (max-width: 400px) {
+            #preview-card { transform: scale(0.8); margin-bottom: -110px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="entry-modal" class="entry-modal">
+        <div class="entry-content" style="position: relative;">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <h2>⚠️ LEGAL DISCLAIMER</h2>
+            <p>Please read and accept the terms before downloading your image.</p>
+            
+            <div class="legal-text">
+                <strong>Terms of Use & Privacy Policy:</strong><br><br>
+                1. <strong>Entertainment Only:</strong> This tool is strictly for entertainment, parody, and design practice. It does not create real identification.<br>
+                2. <strong>Prohibited Use:</strong> You strictly agree NOT to use this tool to create forged documents, impersonate officials, bypass security, or deceive any personnel.<br>
+                3. <strong>Data Privacy:</strong> 100% Safe. We do NOT store any data. All images and text are processed locally inside your web browser.<br>
+                4. <strong>Liability:</strong> The creators, hosts, and developers of this tool bear absolutely NO responsibility for any illegal or inappropriate misuse of the generated images by the user.<br>
+                5. <strong>Watermark Policy:</strong> You agree not to remove the "MOCK VIP PASS — NOT REAL" watermark generated on the image.
+            </div>
+
+            <label class="checkbox-container">
+                <input type="checkbox" id="terms-check" onchange="toggleEnterButton()">
+                <span>I Accept the Terms & Conditions</span>
+            </label>
+
+            <button id="btn-enter" class="btn-enter" onclick="acceptAndDownload()" disabled>Accept & Download</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-area">🎟️</div>
+        <h1>VIP Pass Generator Pro</h1>
+        <div class="subtitle">Secure, Fast & Client-Side Design Tool</div>
+        <div class="warning-box">For Entertainment & Pranks Only. NOT valid for entry.</div>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <h3>🎨 Customize Your Badge</h3>
+            
+            <div class="form-group">
+                <label>Card Theme</label>
+                <div class="color-opts">
+                    <div class="color-btn bg-gold active" onclick="setTheme('gold', this)" title="Premium Gold"></div>
+                    <div class="color-btn bg-black" onclick="setTheme('black', this)" title="Midnight VIP"></div>
+                    <div class="color-btn bg-blue" onclick="setTheme('blue', this)" title="Corporate Blue"></div>
+                    <div class="color-btn bg-purple" onclick="setTheme('purple', this)" title="Creative Purple"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="inp-name" placeholder="e.g. John Doe" maxlength="22" oninput="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Event Name</label>
+                <input type="text" id="inp-event" placeholder="e.g. Tomorrowland 2026" maxlength="25" oninput="updatePreview()">
+            </div>
+
+            <div class="form-group">
+                <label>Role / Access Level</label>
+                <input type="text" id="inp-role" placeholder="e.g. ALL ACCESS / V.I.P" maxlength="20" oninput="updatePreview()">
+            </div>
+
+            <div class="form-group">
+                <label>Validity / Year</label>
+                <input type="text" id="inp-date" placeholder="e.g. DEC 2026" maxlength="15" oninput="updatePreview()">
+            </div>
+
+            <div class="form-group">
+                <label>Upload Photo</label>
+                <input type="file" id="inp-photo" accept="image/*" onchange="handlePhoto(this)">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-clear" onclick="clearAll()">Reset Design</button>
+                <button class="btn-download" onclick="openModal()">📥 Download HD PNG</button>
+            </div>
+        </div>
+
+        <div class="preview-area">
+            <div id="preview-card" class="theme-gold">
+                <div class="vip-header">VIP PASS</div>
+                <div class="event-name" id="prev-event">EVENT NAME</div>
+                
+                <div class="photo-frame" id="prev-photo-frame">
+                    <span id="prev-placeholder" class="photo-placeholder">UPLOAD<br>PHOTO</span>
+                </div>
+
+                <h2 class="person-name" id="prev-name">YOUR NAME</h2>
+                <div class="person-role" id="prev-role">VIP GUEST</div>
+
+                <div class="pass-date" id="prev-date">2026</div>
+
+                <div class="watermark">MOCK VIP PASS — NOT REAL — DEMO</div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="gen-canvas" style="display:none;"></canvas>
+
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="disclaimer.html">Disclaimer</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-text">
+            <p><strong>Privacy Promise:</strong> No data is ever sent to any server. Your images and texts remain strictly in your browser's memory.</p>
+            <p style="opacity: 0.7; margin-top: 10px;">&copy; 2026 VIP Pass Generator Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- POPUP LOGIC ---
+        const modal = document.getElementById('entry-modal');
+        const checkbox = document.getElementById('terms-check');
+        const btnEnter = document.getElementById('btn-enter');
+
+        function openModal() { modal.style.display = 'flex'; }
+        
+        function closeModal() {
+            modal.style.display = 'none';
+            checkbox.checked = false;
+            toggleEnterButton();
+        }
+
+        function toggleEnterButton() { btnEnter.disabled = !checkbox.checked; }
+
+        function acceptAndDownload() {
+            closeModal(); 
+            generateCanvas(); 
+        }
+
+        // --- APP LOGIC ---
+        let currentTheme = 'gold';
+        let uploadedImgObj = null; // New logic for Image Object
+
+        function setTheme(theme, btn) {
+            currentTheme = theme;
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const card = document.getElementById('preview-card');
+            card.className = ''; 
+            card.classList.add('theme-' + theme);
+        }
+
+        function updatePreview() {
+            document.getElementById('prev-name').textContent = document.getElementById('inp-name').value || 'YOUR NAME';
+            document.getElementById('prev-event').textContent = document.getElementById('inp-event').value || 'EVENT NAME';
+            document.getElementById('prev-role').textContent = document.getElementById('inp-role').value || 'VIP GUEST';
+            document.getElementById('prev-date').textContent = document.getElementById('inp-date').value || '2026';
+        }
+
+        // UPDATED PHOTO HANDLER (Fixes all display issues)
+        function handlePhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const dataUrl = e.target.result;
+                    
+                    // 1. Set Image as CSS Background (Perfect Circle every time)
+                    const frame = document.getElementById('prev-photo-frame');
+                    frame.style.backgroundImage = `url(${dataUrl})`;
+                    document.getElementById('prev-placeholder').style.display = 'none';
+
+                    // 2. Create actual Image Object for Canvas to use later
+                    uploadedImgObj = new Image();
+                    uploadedImgObj.src = dataUrl;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function clearAll() {
+            document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+            document.getElementById('inp-photo').value = '';
+            
+            // Clear Image Data
+            uploadedImgObj = null;
+            const frame = document.getElementById('prev-photo-frame');
+            frame.style.backgroundImage = 'none';
+            document.getElementById('prev-placeholder').style.display = 'block';
+            
+            updatePreview();
+        }
+
+        // --- HD CANVAS GENERATION ---
+        function generateCanvas() {
+            const canvas = document.getElementById('gen-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const width = 720;
+            const height = 1140;
+            canvas.width = width;
+            canvas.height = height;
+
+            const colors = {
+                gold: { bg: '#ffffff', text: '#1a1a2e', border: '#d4af37', role: '#ff3b30' },
+                black: { bg: '#1a1a2e', text: '#ffffff', border: '#ffffff', role: '#d4af37' },
+                blue: { bg: '#ffffff', text: '#002a5c', border: '#0056b3', role: '#ff3b30' },
+                purple: { bg: '#ffffff', text: '#311b92', border: '#673ab7', role: '#ff3b30' }
+            };
+            const t = colors[currentTheme];
+
+            // Background & Border
+            ctx.fillStyle = t.bg;
+            ctx.fillRect(0, 0, width, height);
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = t.border;
+            ctx.strokeRect(0, 0, width, height);
+
+            // VIP Title
+            ctx.font = '900 75px "Poppins", Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = currentTheme === 'black' ? '#ffffff' : t.border;
+            ctx.fillText('VIP PASS', width / 2, 140);
+            
+            ctx.beginPath(); ctx.moveTo(100, 160); ctx.lineTo(620, 160);
+            ctx.strokeStyle = t.border; ctx.lineWidth = 6; ctx.stroke();
+
+            // Event Name
+            ctx.font = 'bold 32px "Poppins", Arial, sans-serif';
+            ctx.fillStyle = t.text; ctx.globalAlpha = 0.8;
+            ctx.fillText(document.getElementById('prev-event').textContent.toUpperCase(), width / 2, 230);
+            ctx.globalAlpha = 1.0;
+
+            // --- PHOTO DRAWING LOGIC ---
+            const cx = width / 2;
+            const cy = 480;
+            const r = 170;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.clip();
+
+            if (uploadedImgObj && uploadedImgObj.complete) {
+                // Calculate cover aspect ratio
+                const aspect = uploadedImgObj.width / uploadedImgObj.height;
+                let drawW = r * 2;
+                let drawH = drawW / aspect;
+                if(drawH < r * 2) { drawH = r * 2; drawW = drawH * aspect; }
+                
+                ctx.drawImage(uploadedImgObj, cx - drawW/2, cy - drawH/2, drawW, drawH);
+            } else {
+                ctx.fillStyle = '#f0f0f0';
+                ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
+                ctx.fillStyle = '#999';
+                ctx.font = 'bold 30px "Poppins"';
+                ctx.fillText('NO PHOTO', cx, cy + 10);
+            }
+            ctx.restore();
+
+            // Photo Borders
+            ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.lineWidth = 12; ctx.strokeStyle = (currentTheme === 'black') ? '#333' : 'rgba(255,255,255,0.9)'; ctx.stroke();
+            
+            ctx.beginPath(); ctx.arc(cx, cy, r + 6, 0, Math.PI * 2);
+            ctx.lineWidth = 3; ctx.strokeStyle = t.border; ctx.stroke();
+
+            // Name & Role
+            ctx.font = '800 65px "Poppins", Arial, sans-serif';
+            ctx.fillStyle = t.text;
+            ctx.fillText(document.getElementById('prev-name').textContent.toUpperCase(), width / 2, 770);
+
+            ctx.font = 'bold 35px "Poppins", Arial, sans-serif';
+            ctx.fillStyle = t.role;
+            ctx.fillText(document.getElementById('prev-role').textContent.toUpperCase(), width / 2, 840);
+
+            // Date Pill Shape Box
+            const dateText = document.getElementById('prev-date').textContent;
+            ctx.font = 'bold 38px "Poppins", Arial, sans-serif';
+            
+            const textMetrics = ctx.measureText(dateText);
+            const boxWidth = textMetrics.width + 80;
+            const boxHeight = 70;
+            const boxX = (width - boxWidth) / 2;
+            const boxY = 940;
+
+            ctx.fillStyle = currentTheme === 'black' ? 'rgba(255,255,255,0.1)' : 'rgba(212, 175, 55, 0.05)';
+            if(currentTheme === 'blue') ctx.fillStyle = 'rgba(0, 86, 179, 0.05)';
+            if(currentTheme === 'purple') ctx.fillStyle = 'rgba(103, 58, 183, 0.05)';
+            
+            ctx.beginPath(); ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 35); ctx.fill();
+            ctx.strokeStyle = t.border; ctx.lineWidth = 3; ctx.stroke();
+
+            ctx.fillStyle = t.text;
+            if(currentTheme === 'gold') ctx.fillStyle = t.border;
+            ctx.fillText(dateText, width / 2, boxY + 48);
+
+            // Watermark
+            ctx.font = '800 22px "Poppins", Arial';
+            ctx.fillStyle = currentTheme === 'black' ? '#ffffff' : '#000000';
+            ctx.globalAlpha = 0.3;
+            ctx.fillText('MOCK VIP PASS — NOT REAL — DEMO', width / 2, 1090);
+
+            // Download
+            const link = document.createElement('a');
+            link.download = 'VIP_Pass_' + Date.now() + '.png';
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+        }
+    </script>
+</body>
+</html>
