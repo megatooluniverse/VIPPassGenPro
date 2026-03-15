@@ -32,20 +32,24 @@
             --font-main: 'Poppins', sans-serif;
         }
 
-        * { box-sizing: border-box; font-family: var(--font-main); }
+        /* Added smooth scrolling and hardware acceleration for better performance */
+        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; font-family: var(--font-main); -webkit-font-smoothing: antialiased; }
         
         body { 
             margin: 0; padding: 0; background: var(--bg); 
             display: flex; flex-direction: column; align-items: center; 
             min-height: 100vh; color: var(--text);
+            overflow-x: hidden;
         }
 
         /* HEADER */
         header { 
             text-align: center; padding: 25px 20px; width: 100%; background: #ffffff; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-bottom: 4px solid var(--accent);
+            position: relative;
         }
-        .logo-area { font-size: 2.5rem; margin-bottom: 5px; animation: bounce 2s infinite; display: inline-block; }
+        .logo-area { font-size: 2.5rem; margin-bottom: 5px; animation: bounce 2s infinite ease-in-out; display: inline-block; transform: translateZ(0); }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         h1 { margin: 0; font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; }
         .subtitle { font-size: 1rem; color: #666; margin-top: 5px; font-weight: 300; }
@@ -55,6 +59,16 @@
             padding: 8px 18px; border-radius: 50px; display: inline-block;
             margin-top: 15px; font-size: 0.85rem; font-weight: 600;
         }
+
+        /* Direct Link Sponsor Button Top */
+        .sponsor-btn-top {
+            position: absolute; top: 20px; right: 20px;
+            background: linear-gradient(135deg, #ff007f, #ff004f);
+            color: white; padding: 8px 15px; border-radius: 20px;
+            text-decoration: none; font-size: 0.85rem; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 0, 127, 0.3); transition: all 0.3s ease;
+        }
+        .sponsor-btn-top:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 0, 127, 0.5); }
 
         /* MAIN LAYOUT */
         .container {
@@ -68,6 +82,7 @@
             background: #ffffff; padding: 35px; border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             height: fit-content; border: 1px solid #eee;
+            transform: translateZ(0); /* Hardware acceleration */
         }
         .controls h3 { margin-top: 0; font-size: 1.3rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 25px; color: var(--primary); }
         
@@ -81,15 +96,17 @@
         
         input[type="file"] {
             width: 100%; padding: 10px; border: 1.5px dashed #ccc; border-radius: 8px;
-            background: #fafafa; cursor: pointer;
+            background: #fafafa; cursor: pointer; transition: all 0.3s;
         }
+        input[type="file"]:hover { border-color: var(--accent); background: #fff; }
 
         .color-opts { display: flex; gap: 15px; margin-top: 8px; }
         .color-btn {
             width: 42px; height: 42px; border-radius: 50%; border: 3px solid #fff; cursor: pointer;
-            transition: all 0.2s; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1); will-change: transform;
         }
-        .color-btn:hover { transform: translateY(-3px); }
+        .color-btn:hover { transform: translateY(-3px) scale(1.05); }
         .color-btn.active { transform: scale(1.15); box-shadow: 0 0 0 3px var(--primary); }
         
         .bg-gold { background: linear-gradient(135deg, #FFD700, #FDB931); }
@@ -100,10 +117,11 @@
         .btn-group { display: flex; flex-direction: column; gap: 15px; margin-top: 35px; }
         button {
             padding: 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
-            font-size: 1.05rem; transition: all 0.3s; font-family: var(--font-main);
+            font-size: 1.05rem; transition: all 0.3s ease; font-family: var(--font-main);
+            will-change: transform;
         }
         .btn-clear { background: #f0f0f0; color: #555; }
-        .btn-clear:hover { background: #e4e4e4; }
+        .btn-clear:hover { background: #e4e4e4; transform: scale(0.98); }
         .btn-download { 
             background: linear-gradient(135deg, #28a745, #208737); color: #fff; 
             box-shadow: 0 8px 15px rgba(40,167,69,0.3); text-transform: uppercase; letter-spacing: 1px; 
@@ -123,40 +141,37 @@
             display: flex; flex-direction: column; align-items: center;
             text-align: center; padding: 30px 20px;
             border: 10px solid; 
-            transition: all 0.4s ease;
+            transition: all 0.4s ease-in-out;
+            transform: translateZ(0); /* Hardware optimization */
         }
 
         .vip-header {
             font-size: 2.8rem; font-weight: 900; letter-spacing: 4px; margin-top: 10px;
             text-transform: uppercase; border-bottom: 4px solid; padding-bottom: 10px;
-            width: 90%; line-height: 1;
+            width: 90%; line-height: 1; transition: color 0.4s, border-color 0.4s;
         }
 
         .event-name { font-size: 1.15rem; font-weight: 700; margin-top: 15px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px;}
 
-        /* UPDATED PHOTO FRAME CSS FOR BUG-FREE IMAGES */
+        /* PHOTO FRAME */
         .photo-frame {
             width: 170px; height: 170px; border-radius: 50%;
             background-color: #f0f0f0; margin: 30px 0; 
             border: 6px solid rgba(255,255,255,0.9);
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 8px 25px rgba(0,0,0,0.15); position: relative;
-            z-index: 2;
-            
-            /* Magic lines for perfect image preview */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            z-index: 2; transition: all 0.4s;
+            background-size: cover; background-position: center; background-repeat: no-repeat;
         }
         
         .photo-placeholder { color: #999; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-align: center; }
 
         .person-name { font-size: 1.8rem; font-weight: 800; margin: 0; line-height: 1.1; word-break: break-word; width: 100%; text-transform: uppercase; }
-        .person-role { font-size: 1.1rem; text-transform: uppercase; margin-top: 8px; letter-spacing: 2px; font-weight: 600; opacity: 0.9; color: #ff3b30; }
+        .person-role { font-size: 1.1rem; text-transform: uppercase; margin-top: 8px; letter-spacing: 2px; font-weight: 600; opacity: 0.9; color: #ff3b30; transition: color 0.4s; }
 
         .pass-date { 
             margin-top: auto; font-size: 1.2rem; font-weight: 800; margin-bottom: 35px; 
-            border: 2px solid; padding: 6px 20px; border-radius: 30px; letter-spacing: 1px;
+            border: 2px solid; padding: 6px 20px; border-radius: 30px; letter-spacing: 1px; transition: all 0.4s;
         }
 
         .watermark {
@@ -190,13 +205,16 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;
             backdrop-filter: blur(8px); padding: 20px;
+            opacity: 0; transition: opacity 0.3s ease;
         }
+        .entry-modal.active { opacity: 1; }
+        
         .entry-content {
             background: #fff; padding: 40px; border-radius: 16px; width: 100%; max-width: 550px;
             text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: slideUp 0.3s ease-out forwards;
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
         
         .entry-content h2 { color: #d32f2f; margin-top: 0; font-weight: 800; font-size: 1.8rem; }
         .entry-content p { color: #555; font-size: 1rem; }
@@ -205,6 +223,12 @@
             border: 1px solid #e0e0e0; padding: 15px; margin: 20px 0; background: #fafafa; border-radius: 8px;
             line-height: 1.6;
         }
+        
+        /* Custom scrollbar for legal text for smoothness */
+        .legal-text::-webkit-scrollbar { width: 6px; }
+        .legal-text::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .legal-text::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        
         .checkbox-container {
             display: flex; align-items: center; justify-content: center; gap: 12px; margin: 25px 0;
             font-size: 1rem; font-weight: 600; cursor: pointer;
@@ -213,12 +237,14 @@
         .btn-enter { 
             width: 100%; background: #1a1a2e; color: #fff; font-size: 1.15rem; padding: 16px; 
             border-radius: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.3s;
         }
-        .btn-enter:disabled { background: #ccc; cursor: not-allowed; }
+        .btn-enter:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-enter:not(:disabled):hover { background: #28a745; transform: translateY(-2px); }
         
         .close-modal {
             position: absolute; right: 20px; top: 20px; font-size: 1.5rem; color: #999; 
-            cursor: pointer; font-weight: bold; background: none; border: none; padding: 0;
+            cursor: pointer; font-weight: bold; background: none; border: none; padding: 0; transition: color 0.2s;
         }
         .close-modal:hover { color: #333; }
 
@@ -230,18 +256,29 @@
         .footer-links { margin-bottom: 15px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
         .footer-links a { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
         .footer-links a:hover { color: var(--accent); }
+        
+        .sponsor-link-footer { color: #ff007f !important; font-weight: 800 !important; }
+        
         .footer-text { font-size: 0.85rem; color: #777; text-align: center; max-width: 600px; line-height: 1.5; }
 
-        /* RESPONSIVE DESIGN */
+        /* RESPONSIVE DESIGN FOR EXTREME SMOOTHNESS ON ALL DEVICES */
         @media (max-width: 768px) {
-            .container { padding: 20px 15px; gap: 30px; }
-            .controls { padding: 25px 20px; }
-            #preview-card { transform: scale(0.9); transform-origin: top center; margin-bottom: -50px; }
-            header h1 { font-size: 1.5rem; }
+            .container { padding: 20px 15px; gap: 30px; flex-direction: column; align-items: center; }
+            .controls { padding: 25px 20px; width: 100%; max-width: 100%; }
+            .preview-area { width: 100%; padding-bottom: 40px; }
+            #preview-card { transform: scale(0.95); margin: 0 auto; }
+            header h1 { font-size: 1.5rem; margin-top: 30px; }
+            .sponsor-btn-top { top: 15px; right: 50%; transform: translateX(50%); width: max-content; }
+            .sponsor-btn-top:hover { transform: translateX(50%) translateY(-2px); }
             .entry-content { padding: 30px 20px; }
         }
         @media (max-width: 400px) {
-            #preview-card { transform: scale(0.8); margin-bottom: -110px; }
+            #preview-card { transform: scale(0.85); transform-origin: top center; margin-bottom: -50px; }
+            .logo-area { font-size: 2rem; }
+            .sponsor-btn-top { font-size: 0.75rem; padding: 6px 12px; }
+        }
+        @media (max-width: 320px) {
+            #preview-card { transform: scale(0.75); margin-bottom: -120px; }
         }
     </style>
 </head>
@@ -272,6 +309,8 @@
     </div>
 
     <header>
+        <a href="https://omg10.com/4/10722095" target="_blank" rel="noopener noreferrer" class="sponsor-btn-top">🎁 Special Offer</a>
+        
         <div class="logo-area">🎟️</div>
         <h1>VIP Pass Generator Pro</h1>
         <div class="subtitle">Secure, Fast & Client-Side Design Tool</div>
@@ -350,6 +389,7 @@
             <a href="disclaimer.html">Disclaimer</a>
             <a href="terms.html">Terms of Use</a>
             <a href="contact.html">Contact Us</a>
+            <a href="https://omg10.com/4/10722095" target="_blank" rel="noopener noreferrer" class="sponsor-link-footer">💎 Sponsored Partners</a>
         </div>
         <div class="footer-text">
             <p><strong>Privacy Promise:</strong> No data is ever sent to any server. Your images and texts remain strictly in your browser's memory.</p>
@@ -358,29 +398,57 @@
     </footer>
 
     <script>
+        // --- POPUNDER AD LOGIC (Show ONLY once every 6 Hours) ---
+        function checkAndLoadPopunder() {
+            const lastShownTime = localStorage.getItem('popunderAdShownTime');
+            const currentTime = new Date().getTime();
+            const sixHoursInMs = 6 * 60 * 60 * 1000; // 6 hours calculation
+
+            // Agar pehli baar hai, ya 6 ghante beet chuke hain
+            if (!lastShownTime || (currentTime - parseInt(lastShownTime)) > sixHoursInMs) {
+                // Popunder script inject karna
+                (function(s){
+                    s.dataset.zone='10722090';
+                    s.src='https://al5sm.com/tag.min.js';
+                })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+                
+                // Naya time save karna
+                localStorage.setItem('popunderAdShownTime', currentTime.toString());
+            }
+        }
+        
+        // Page load hote hi script check karegi
+        window.addEventListener('DOMContentLoaded', checkAndLoadPopunder);
+
         // --- POPUP LOGIC ---
         const modal = document.getElementById('entry-modal');
         const checkbox = document.getElementById('terms-check');
         const btnEnter = document.getElementById('btn-enter');
 
-        function openModal() { modal.style.display = 'flex'; }
+        function openModal() { 
+            modal.style.display = 'flex'; 
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
         
         function closeModal() {
-            modal.style.display = 'none';
-            checkbox.checked = false;
-            toggleEnterButton();
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                checkbox.checked = false;
+                toggleEnterButton();
+            }, 300);
         }
 
         function toggleEnterButton() { btnEnter.disabled = !checkbox.checked; }
 
         function acceptAndDownload() {
             closeModal(); 
-            generateCanvas(); 
+            setTimeout(() => generateCanvas(), 350); // Small delay to let modal close smoothly 
         }
 
         // --- APP LOGIC ---
         let currentTheme = 'gold';
-        let uploadedImgObj = null; // New logic for Image Object
+        let uploadedImgObj = null;
 
         function setTheme(theme, btn) {
             currentTheme = theme;
@@ -398,19 +466,15 @@
             document.getElementById('prev-date').textContent = document.getElementById('inp-date').value || '2026';
         }
 
-        // UPDATED PHOTO HANDLER (Fixes all display issues)
         function handlePhoto(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const dataUrl = e.target.result;
-                    
-                    // 1. Set Image as CSS Background (Perfect Circle every time)
                     const frame = document.getElementById('prev-photo-frame');
                     frame.style.backgroundImage = `url(${dataUrl})`;
                     document.getElementById('prev-placeholder').style.display = 'none';
 
-                    // 2. Create actual Image Object for Canvas to use later
                     uploadedImgObj = new Image();
                     uploadedImgObj.src = dataUrl;
                 }
@@ -422,13 +486,15 @@
             document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
             document.getElementById('inp-photo').value = '';
             
-            // Clear Image Data
             uploadedImgObj = null;
             const frame = document.getElementById('prev-photo-frame');
             frame.style.backgroundImage = 'none';
             document.getElementById('prev-placeholder').style.display = 'block';
             
             updatePreview();
+            
+            // Scroll to top smoothly on clear
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // --- HD CANVAS GENERATION ---
@@ -482,7 +548,6 @@
             ctx.clip();
 
             if (uploadedImgObj && uploadedImgObj.complete) {
-                // Calculate cover aspect ratio
                 const aspect = uploadedImgObj.width / uploadedImgObj.height;
                 let drawW = r * 2;
                 let drawH = drawW / aspect;
@@ -548,5 +613,8 @@
             link.click();
         }
     </script>
+
+    <script>(function(s){s.dataset.zone='10722097',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>
